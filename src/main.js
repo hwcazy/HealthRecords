@@ -9,6 +9,13 @@ import 'iview/dist/styles/iview.css'
 import './interceptor/axios.interceptor'
 import '@/filter'
 
+//引入基本模板
+import echarts from 'echarts' //引入echarts
+
+
+Vue.prototype.$echarts = echarts //引入组件
+
+
 
 Vue.use(iView)
 

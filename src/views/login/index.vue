@@ -33,9 +33,9 @@
 
   export default {
     mounted() {
-      if(getCookie('username')){
-        this.$router.push('/home')
-      }
+      //if(getCookie('username')){
+       // this.$router.push('/home')
+      //}
     },
     data() {
       return {
@@ -62,7 +62,7 @@
           setTimeout(() => {
             this.$Spin.hide();
           }, 3000);
-          axios.post('http://10.192.48.220:51241/api/HealthSys/Login',
+          axios.post(this.baseApiUrl+'/api/HealthSys/Login',
             {
               username: this.username,
               password: this.password
@@ -73,7 +73,8 @@
             if (res.data.msgCode == 0) {
               this.tishi = "登录成功"
               this.showTishi = true
-              setCookie('username', this.username, 1000 * 60)
+              setCookie('username', this.username, 1000 * 60);
+              sessionStorage.setItem('patientno',JSON.stringify(res.data.data.patientno));
               setTimeout(function () {
                 this.$router.push({path: 'home', query: {id: 1}})
               }.bind(this), 1000)
@@ -106,8 +107,8 @@
           setTimeout(() => {
             this.$Spin.hide();
           }, 3000);
-          axios.post('http://10.192.48.220:51241/api/HealthSys/Register', {
-
+            axios.post(this.baseApiUrl+'/api/HealthSys/Register',
+            {
             username: this.newUsername,
             password: this.newPassword
           }).then((res) => {

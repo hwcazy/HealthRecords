@@ -6,7 +6,7 @@
       <Row type="flex" >
         <Col span="6" order="1"><router-link to="/home/sleep">
           睡眠</router-link></Col>
-        <Col span="6" order="2"><router-link to="/home/cold">
+        <Col span="6" order="2"><router-link to="/home/statistics">
           感冒</router-link></Col>
         <Col span="6" order="3"><router-link to="/home/diarrhea">
           腹泻</router-link></Col>

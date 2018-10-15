@@ -70,6 +70,7 @@
           endtime: '',
           exercisetime: '',
           motiontype: '',
+          remark:'',
 
         },
         ruleValidate: {
@@ -101,21 +102,25 @@
             setTimeout(() => {
               this.$Spin.hide();
             }, 3000);
-            axios.post('http://10.192.48.220:51241/api/HealthSys/ExerciseRecord',
+            axios.post(this.baseApiUrl+'/api/HealthSys/ExerciseRecord',
               {
+                patientno:JSON.parse(sessionStorage.getItem("patientno")),
+                dateentry:'',
                 starttime: this.formValidate.starttime,
                 endtime: this.formValidate.endtime,
-                exercisetime: this.formValidate.exercisetime,
-                motiontype: this.formValidate.motiontype
-
+                exercisehours: this.formValidate.exercisetime,
+                motiontype: this.formValidate.motiontype,
+                remark:this.formValidate.remark
               }).then((res) => {
+
               this.$Spin.hide();
               console.log(res.data)
               this.item = res.data
               if (res.data.msgCode == 0) {
                 this.$Message.success('信息录入成功!');
                 setTimeout(function () {
-                  this.$router.push({path: 'home', query: {id: 1}})
+                  this.$router.push({name: 'home'})
+                  //this.$router.push({path: 'home', query: {id: 1}})
                 }.bind(this), 1000)
               } else if (res.data.msgCode == -1) {
 

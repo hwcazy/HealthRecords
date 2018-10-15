@@ -657,8 +657,8 @@
             setTimeout(() => {
               this.$Spin.hide();
             }, 3000);
-            axios.post('http://10.192.48.220:51241/api/HealthSys/UpdateUser', {
-              patientno: '',
+            axios.post(this.baseApiUrl+'/api/HealthSys/UpdateUser', {
+              patientno:JSON.parse(sessionStorage.getItem("patientno")),
               username: '',
               password: '',
               name: this.formValidate.name,

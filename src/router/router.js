@@ -88,16 +88,6 @@ export const appRouter = [
     ]
   },
   {
-    path: '/home/emotional',
-    name: 'emotional',
-    title: '情绪化',
-    icon: 'navicon',
-    component: Frame,
-    children: [
-      {path: 'emotional', title: '情绪化', name: 'home-emotional', component: () => import('@/views/home/emotional')},
-    ]
-  },
-  {
     path: '/home/exercise',
     name: 'exercise',
     title: '锻炼',
@@ -108,13 +98,13 @@ export const appRouter = [
     ]
   },
   {
-    path: '/cold/statistics',
+    path: '/home/statistics',
     name: 'statistics',
     title: '感冒记录',
     icon: 'navicon',
     component: Frame,
     children: [
-      {path: 'statistics', title: '感冒记录', name: 'cold-statistics', component: () =>  import('@/views/home/mystatistics')},
+      {path: 'statistics', title: '感冒记录', name: 'home-statistics', component: () =>  import('@/views/home/statistics')},
     ]
   },
   {
