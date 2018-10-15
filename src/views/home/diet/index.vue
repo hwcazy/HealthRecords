@@ -181,7 +181,45 @@
         handleSubmit (name) {
           this.$refs[name].validate((valid) => {
             if (valid) {
-              this.$Message.success('Success!');
+
+
+              this.$Spin.show();
+              setTimeout(() => {
+                this.$Spin.hide();
+              }, 3000);
+              axios.post(URI+'/api/HealthSys/BiteRecord',
+                {
+                  patientno:JSON.parse(sessionStorage.getItem("patientno")),
+                  breakfastmeals: this.formValidate.emotionstate,
+                  breakfastfood: this.formValidate.remark,
+                  breakfasttime: this.formValidate.remark,
+                  breakfasthours: this.formValidate.remark,
+                  lunchmeals: this.formValidate.remark,
+                  lunchfastfood: this.formValidate.remark,
+                  lunchtime: this.formValidate.remark,
+                  lunchhours: this.formValidate.remark,
+
+                  suppermeals: this.formValidate.remark,
+                  supperfood: this.formValidate.remark,
+                  suppertime: this.formValidate.remark,
+                  supperhours: this.formValidate.remark,
+                  remark : this.formValidate.remark,
+
+                }).then((res) => {
+                this.$Spin.hide();
+                console.log(res.data)
+                this.item = res.data
+                if (res.data.msgCode == 0) {
+                  this.$Message.success('信息录入成功!');
+                  setTimeout(function () {
+                    this.$router.push({name: 'home'})
+                  }.bind(this), 1000)
+                } else if (res.data.msgCode == -1) {
+                } else {
+                }
+              })
+
+
             } else {
               this.$Message.error('Fail!');
             }

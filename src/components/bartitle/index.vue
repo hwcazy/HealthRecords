@@ -3,18 +3,21 @@
     <div class="back">
       <span @click="back" class="icon"><Icon type="ios-arrow-back" /> </span>
      <span>{{ mytitle }}</span>
+      <span  class="operation" @click="myClick">{{ operationName }}</span>
     </div>
-
   </div>
 </template>
 
 <script>
-  import axios from 'axios'
   export default {
     props:{
       mytitle:{
         type: String,
         required: true
+      },
+      operationName:{
+        type: String,
+        required: false
       }
     },
     mounted() {
@@ -29,7 +32,10 @@
     methods: {
       back(){
         this.$router.push('/home/list');
-      }
+      },
+      myClick(){
+        this.$emit('clickBtn','5')
+      },
 
     }
 
@@ -50,6 +56,11 @@
     position: absolute;
     left: 0;
     margin-left: 15px;
-    margin-left: 15px;
+
+  }
+  .operation{
+    position: absolute;
+    right: 0;
+    margin-right: 15px;
   }
 </style>

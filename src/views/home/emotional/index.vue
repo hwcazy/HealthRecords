@@ -3,25 +3,17 @@
     <Bartitle mytitle="情绪化"/>
     <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
 
-
-
           <FormItem label="情绪状态" prop="emotionstate">
             <Select v-model="formValidate.emotionstate" placeholder="请选择情绪状态">
               <Option value="高兴">高兴</Option>
               <Option value="生气">生气</Option>
               <Option value="平和">平和</Option>
-
             </Select>
           </FormItem>
-
 
       <FormItem label="备注" prop="remark">
         <Input v-model="formValidate.remark" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="填写备注信息..."></Input>
       </FormItem>
-
-
-
-
 
       <FormItem>
         <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
@@ -34,7 +26,7 @@
 
 <script>
   import Bartitle from '@/components/bartitle'
-  import {shadowCloneToNewJson} from "../../../utils/clone";
+  import {URI} from '../../../constants/uri'
   import axios from 'axios'
   export default {
     components:{
@@ -46,7 +38,6 @@
       return{
         formValidate: {
           emotionstate: '',
-
         },
         ruleValidate: {
           emotionstate: [
@@ -62,7 +53,32 @@
       handleSubmit (name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
-            this.$Message.success('Success!');
+
+            this.$Spin.show();
+            setTimeout(() => {
+              this.$Spin.hide();
+            }, 3000);
+            axios.post(URI+'/api/HealthSys/EmotionalRecord',
+              {
+                patientno:JSON.parse(sessionStorage.getItem("patientno")),
+                emotionalstate: this.formValidate.emotionstate,
+                remark: this.formValidate.remark,
+
+              }).then((res) => {
+              this.$Spin.hide();
+              console.log(res.data)
+              this.item = res.data
+              if (res.data.msgCode == 0) {
+                this.$Message.success('信息录入成功!');
+                setTimeout(function () {
+                  this.$router.push({name: 'home'})
+                }.bind(this), 1000)
+              } else if (res.data.msgCode == -1) {
+              } else {
+              }
+            })
+
+
           } else {
             this.$Message.error('Fail!');
           }

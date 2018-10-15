@@ -10,8 +10,6 @@
 <script>
 export default {
   name: 'App',
-  //baseUrl:'http://47.105.104.60:7001',
-  baseApiUrl:'http://10.192.48.220:8081',
   methods:{
     setCookie: function(c_name,value,expire) {
       var date=new Date()

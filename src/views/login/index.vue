@@ -30,7 +30,7 @@
 <script>
   import {setCookie, getCookie} from '../../assets/js/cookie.js'
   import axios from 'axios'
-
+  import {URI} from '../../constants/uri'
   export default {
     mounted() {
       //if(getCookie('username')){
@@ -62,7 +62,7 @@
           setTimeout(() => {
             this.$Spin.hide();
           }, 3000);
-          axios.post(this.baseApiUrl+'/api/HealthSys/Login',
+          axios.post(URI+'/api/HealthSys/Login',
             {
               username: this.username,
               password: this.password
@@ -84,7 +84,6 @@
             } else {
               this.tishi = "该用户不存在"
               this.showTishi = true
-
             }
           })
         }
@@ -107,7 +106,7 @@
           setTimeout(() => {
             this.$Spin.hide();
           }, 3000);
-            axios.post(this.baseApiUrl+'/api/HealthSys/Register',
+            axios.post(URI+'/api/HealthSys/Register',
             {
             username: this.newUsername,
             password: this.newPassword

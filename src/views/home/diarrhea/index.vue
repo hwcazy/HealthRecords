@@ -86,8 +86,8 @@
 
       <Row>
         <Col span="12">
-          <FormItem label="用药次数" prop="drugcount">
-            <Input v-model="formValidate.drugcount" placeholder="请填写用药次数"></Input>
+          <FormItem label="用药次数" prop="drugfrequency">
+            <Input v-model="formValidate.drugfrequency" placeholder="请填写用药次数"></Input>
           </FormItem>
         </Col>
 
@@ -102,8 +102,8 @@
 
       <Row>
         <Col span="12">
-          <FormItem label="饮水类型" prop="drinkingwater">
-            <Select v-model="formValidate.drinkingwater" placeholder="请选择饮水类型">
+          <FormItem label="饮水类型" prop="watertype">
+            <Select v-model="formValidate.watertype" placeholder="请选择饮水类型">
               <Option value="热水">热水</Option>
               <Option value="冷水">冷水</Option>
               <Option value="温水">温水</Option>
@@ -114,43 +114,43 @@
         </Col>
 
         <Col span="12">
-          <FormItem label="工作时长(h)" prop="Longworkingtime">
-            <Input v-model="formValidate.Longworkingtime" placeholder="请填写工作时长"></Input>
+          <FormItem label="工作时长(h)" prop="workhours">
+            <Input v-model="formValidate.workhours" placeholder="请填写工作时长"></Input>
           </FormItem>
         </Col>
       </Row>
+
+          <Row>
+        <Col span="12">
+          <FormItem label="饭量" prop="appetite">
+            <Input v-model="formValidate.appetite" placeholder="请填写饭量"></Input>
+          </FormItem>
+        </Col>
+
+        <Col span="12">
+          <FormItem label="睡眠时长(h)" prop="sleephours">
+            <Input v-model="formValidate.sleephours" placeholder="请填写睡眠时长"></Input>
+          </FormItem>
+        </Col>
+      </Row>
+
 
       <Row>
         <Col span="12">
-          <FormItem label="饭量" prop="Mealamount">
-            <Input v-model="formValidate.Mealamount" placeholder="请填写饭量"></Input>
+          <FormItem label="体温" prop="animalheat">
+            <Input v-model="formValidate.animalheat" placeholder="请填写体温"></Input>
           </FormItem>
         </Col>
 
         <Col span="12">
-          <FormItem label="睡眠时长(h)" prop="sleeptime">
-            <Input v-model="formValidate.sleeptime" placeholder="请填写睡眠时长"></Input>
+          <FormItem label="气温" prop="weather">
+            <Input v-model="formValidate.weather" placeholder="请填写气温"></Input>
           </FormItem>
         </Col>
       </Row>
 
-
-      <Row>
-        <Col span="12">
-          <FormItem label="体温" prop="temperature">
-            <Input v-model="formValidate.temperature" placeholder="请填写体温"></Input>
-          </FormItem>
-        </Col>
-
-        <Col span="12">
-          <FormItem label="气温" prop="airtemperature">
-            <Input v-model="formValidate.airtemperature" placeholder="请填写气温"></Input>
-          </FormItem>
-        </Col>
-      </Row>
-
-      <FormItem label="饮水量" prop="Waterintake">
-        <Input v-model="formValidate.Waterintake" placeholder="请填写饮水量"></Input>
+      <FormItem label="饮水量" prop="waternum">
+        <Input v-model="formValidate.waternum" placeholder="请填写饮水量"></Input>
       </FormItem>
       <FormItem label="症状" prop="Symptom">
         <Input v-model="formValidate.Symptom" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="填写症状..."></Input>
@@ -198,18 +198,17 @@
           Diagnosis: '',
 
           drugbumber: '',
-          drugcount: '',
+          drugfrequency: '',
           toiletcount: '',
 
-          drinkingwater: '',
-          Longworkingtime: '',
-          Mealamount: '',
+          watertype: '',
+          workhours: '',
+          appetite: '',
+          sleephours: '',
+          animalheat: '',
+          weather: '',
 
-          sleeptime: '',
-          temperature: '',
-          airtemperature: '',
-
-          Waterintake: '',
+          waternum: '',
           Symptom: '',
 
           remark1: '',
@@ -228,7 +227,52 @@
       handleSubmit (name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
-            this.$Message.success('Success!');
+
+            this.$Spin.show();
+            setTimeout(() => {
+              this.$Spin.hide();
+            }, 3000);
+            axios.post(URI+'/api/HealthSys/DiarrheaRecord',
+              {
+                patientno:JSON.parse(sessionStorage.getItem("patientno")),
+                starttime: this.formValidate.starttime,
+                endtime: this.formValidate.endtime,
+                cinichospital: this.formValidate.hospital,
+                diagnose: this.formValidate.Diagnosis,
+                diagnosistime: this.formValidate.Diagnosistime,
+                clinicdepartment: this.formValidate.Department,
+                clinicdeDoctor : this.formValidate.Doctor,
+                recovery: this.formValidate.recovery,
+                remark : this.formValidate.remark1,
+                symptom: this.formValidate.Symptom,
+                drug: this.formValidate.druginfo,
+                drugnum: this.formValidate.drugbumber,
+                drugfrequency : this.formValidate.drugfrequency,
+                dress: "",
+                appetite: this.formValidate.appetite,
+                watertype: this.formValidate.watertype,
+                waternum: this.formValidate.waternum,
+                workhours: this.formValidate.workhours,
+                weather: this.formValidate.weather,
+                animalheat: this.formValidate.animalheat,
+                sleephours: this.formValidate.sleephours,
+                remark2: this.formValidate.remark2,
+              }).then((res) => {
+              this.$Spin.hide();
+              console.log(res.data)
+              this.item = res.data
+              if (res.data.msgCode == 0) {
+                this.$Message.success('信息录入成功!');
+                setTimeout(function () {
+                  this.$router.push({name: 'home'})
+                }.bind(this), 1000)
+              } else if (res.data.msgCode == -1) {
+              } else {
+              }
+            })
+
+
+
           } else {
             this.$Message.error('Fail!');
           }

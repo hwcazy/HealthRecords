@@ -1,8 +1,8 @@
 <template>
   <div>
-    <Bartitle mytitle="感冒统计"/>
-    <div id="myBin" style="width: 300px;height:300px;"></div>
-    <div id="myChart" :style="{width: '300px', height: '300px'}"></div>
+    <Bartitle mytitle="感冒统计" operationName="录入" @clickBtn="clickBtn" />
+    <div id="myBin" style="width: 100%;height:300px;"></div>
+    <div id="myChart" :style="{width: '100%', height: '300px'}"></div>
   </div>
 
 </template>
@@ -30,6 +30,7 @@
     },
 
     methods: {
+
       drawBin(){
         // 绘制图表。
         this.$echarts.init(document.getElementById('myBin')).setOption({
@@ -64,7 +65,12 @@
             data: [1, 3, 1, 2, 4]
           }]
         });
+      },
+      clickBtn(vaule) {
+        console.log(vaule)
+        this.$router.push({name: 'cold'})
       }
+
     }
 
 

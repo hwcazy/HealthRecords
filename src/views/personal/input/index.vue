@@ -479,7 +479,7 @@
 
 <script>
   import Bartitle from '@/components/bartitle'
-
+  import {URI} from '../../../constants/uri'
 
   export default {
 
@@ -657,7 +657,7 @@
             setTimeout(() => {
               this.$Spin.hide();
             }, 3000);
-            axios.post(this.baseApiUrl+'/api/HealthSys/UpdateUser', {
+            axios.post(URI+'/api/HealthSys/UpdateUser', {
               patientno:JSON.parse(sessionStorage.getItem("patientno")),
               username: '',
               password: '',

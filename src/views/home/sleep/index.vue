@@ -107,8 +107,8 @@
         <Input v-model="formValidate.Bedtimeactivity" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="填写睡前活动..."></Input>
       </FormItem>
 
-      <FormItem label="睡眠情况" prop="Sleepcondition">
-        <Input v-model="formValidate.Sleepcondition" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="填写睡眠情况..."></Input>
+      <FormItem label="睡眠情况" prop="sleepquality">
+        <Input v-model="formValidate.sleepquality" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="填写睡眠情况..."></Input>
       </FormItem>
       <FormItem label="备注" prop="remark">
         <Input v-model="formValidate.remark" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="填写备注信息..."></Input>
@@ -129,7 +129,7 @@
 
 <script>
   import Bartitle from '@/components/bartitle'
-  import {shadowCloneToNewJson} from "../../../utils/clone";
+  import {URI} from '../../../constants/uri'
   import axios from 'axios'
     export default {
       components:{
@@ -152,8 +152,8 @@
             isTakemedicine: '',
             isWine: '',
             Bedtimeactivity: '',
-            Sleepcondition: '',
-
+            sleepquality: '',
+            remark: '',
 
           },
           ruleValidate: {
@@ -180,7 +180,45 @@
         handleSubmit (name) {
           this.$refs[name].validate((valid) => {
             if (valid) {
-              this.$Message.success('Success!');
+              this.$Spin.show();
+              setTimeout(() => {
+                this.$Spin.hide();
+              }, 3000);
+              axios.post(URI+'/api/HealthSys/SleepRecord',
+                {
+                  patientno:JSON.parse(sessionStorage.getItem("patientno")),
+                  sleepquality: this.formValidate.sleepquality,
+                  getuptime: this.formValidate.Wakingtime,
+                  bedtime: this.formValidate.Bedtime,
+                  approximatebedtime: this.formValidate.Timetofallasleep,
+                  sleephours: this.formValidate.Longsleeptime,
+                  sleepdepth: this.formValidate.Sleepdepth,
+                  bedtimeactivities: this.formValidate.Bedtimeactivity,
+                  workinghours: this.formValidate.Longworkingtime,
+                  sentiment: this.formValidate.emotion,
+                  takemedicine: this.formValidate.isTakemedicine,
+                  sleepdrink: this.formValidate.isWine,
+                  sleepdiet: this.formValidate.isdiet,
+                  nightnum: this.formValidate.urinate,
+                  remark: this.formValidate.remark,
+                }).then((res) => {
+                this.$Spin.hide();
+                console.log(res.data)
+                this.item = res.data
+                if (res.data.msgCode == 0) {
+                  this.$Message.success('信息录入成功!');
+                  setTimeout(function () {
+                    this.$router.push({name: 'home'})
+                  }.bind(this), 1000)
+                } else if (res.data.msgCode == -1) {
+
+                } else {
+
+
+                }
+              })
+
+
             } else {
               this.$Message.error('Fail!');
             }
