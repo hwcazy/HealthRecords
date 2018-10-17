@@ -140,9 +140,9 @@
       data(){
         return{
           formValidate: {
-            Wakingtime: '',
-            Bedtime: '',
-            Timetofallasleep: '',
+            Wakingtime: new Date(),
+            Bedtime: new Date(),
+            Timetofallasleep: new Date(),
             Longsleeptime: '',
             Sleepdepth: '',
             Longworkingtime: '',
@@ -220,7 +220,7 @@
 
 
             } else {
-              this.$Message.error('Fail!');
+              this.$Message.error('信息录入失败!');
             }
           })
         },
@@ -236,8 +236,10 @@
 <style  scoped>
 
   Form{
+    margin-top: 20px;
     color: cornflowerblue;
     background-color: white;
+    margin-right: 15px;
   }
 
 </style>

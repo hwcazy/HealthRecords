@@ -92,7 +92,7 @@
 
 <script>
   import Bartitle from '@/components/bartitle'
-  import {shadowCloneToNewJson} from "../../../utils/clone";
+  import {URI} from '../../../constants/uri'
   import axios from 'axios'
     export default {
       components:{
@@ -104,17 +104,17 @@
         return{
           formValidate: {
 
-            breakfasttime: '',
+            breakfasttime:new Date(),
             breakfastlong: '',
             breakfaststate: '',
             breakfastfood: '',
 
-            lunchtime: '',
+            lunchtime:new Date(),
             lunchlong: '',
             lunchstate: '',
             lunchfood: '',
 
-            dinnertime: '',
+            dinnertime:new Date(),
             dinnerlong: '',
             dinnerstate: '',
             dinnerfood: '',
@@ -145,34 +145,6 @@
             ],
 
 
-            breakfaststate: [
-              { required: true, message: '请填写早餐餐食信息', trigger: 'blur' },
-              { type: 'string', min: 20, message: '诊断信息不少于20个字', trigger: 'blur' }
-            ],
-            breakfastfood: [
-              { required: true, message: '请填写早餐食物信息', trigger: 'blur' },
-              { type: 'string', min: 20, message: '诊断信息不少于20个字', trigger: 'blur' }
-            ],
-            lunchstate: [
-              { required: true, message: '请填写午餐餐食信息', trigger: 'blur' },
-              { type: 'string', min: 20, message: '诊断信息不少于20个字', trigger: 'blur' }
-            ],
-            lunchfood: [
-              { required: true, message: '请填写午餐食物信息', trigger: 'blur' },
-              { type: 'string', min: 20, message: '诊断信息不少于20个字', trigger: 'blur' }
-            ],
-            dinnerstate: [
-              { required: true, message: '请填写晚餐餐食信息', trigger: 'blur' },
-              { type: 'string', min: 20, message: '诊断信息不少于20个字', trigger: 'blur' }
-            ],
-            dinnerfood: [
-              { required: true, message: '请填写晚餐食物信息', trigger: 'blur' },
-              { type: 'string', min: 20, message: '诊断信息不少于20个字', trigger: 'blur' }
-            ],
-            remark: [
-              { required: true, message: '请填写备注信息', trigger: 'blur' },
-              { type: 'string', min: 20, message: '备注信息不少于20个字', trigger: 'blur' }
-            ]
           }
         }
       },
@@ -190,19 +162,20 @@
               axios.post(URI+'/api/HealthSys/BiteRecord',
                 {
                   patientno:JSON.parse(sessionStorage.getItem("patientno")),
-                  breakfastmeals: this.formValidate.emotionstate,
-                  breakfastfood: this.formValidate.remark,
-                  breakfasttime: this.formValidate.remark,
-                  breakfasthours: this.formValidate.remark,
-                  lunchmeals: this.formValidate.remark,
-                  lunchfastfood: this.formValidate.remark,
-                  lunchtime: this.formValidate.remark,
-                  lunchhours: this.formValidate.remark,
+                  breakfastmeals: this.formValidate.breakfaststate,
+                  breakfastfood: this.formValidate.breakfastfood,
+                  breakfasttime: this.formValidate.breakfasttime,
+                  breakfasthours: this.formValidate.breakfastlong,
 
-                  suppermeals: this.formValidate.remark,
-                  supperfood: this.formValidate.remark,
-                  suppertime: this.formValidate.remark,
-                  supperhours: this.formValidate.remark,
+                  lunchmeals: this.formValidate.lunchstate,
+                  lunchfastfood: this.formValidate.lunchfood,
+                  lunchtime: this.formValidate.lunchtime,
+                  lunchhours: this.formValidate.lunchlong,
+
+                  suppermeals: this.formValidate.dinnerstate,
+                  supperfood: this.formValidate.dinnerfood,
+                  suppertime: this.formValidate.dinnertime,
+                  supperhours: this.formValidate.dinnerlong,
                   remark : this.formValidate.remark,
 
                 }).then((res) => {
@@ -237,8 +210,10 @@
 <style  scoped>
 
   Form{
+    margin-top: 20px;
     color: cornflowerblue;
     background-color: white;
+    margin-right: 15px;
   }
 
 </style>

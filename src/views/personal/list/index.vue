@@ -7,7 +7,7 @@
   </div>
 
     <div style="padding: 10px;background: #f8f8f9">
-      <Card title="健康档案" icon="ios-options" :padding="0" shadow style="width: 300px;">
+      <Card title="健康档案" icon="ios-options" :padding="0" shadow style="width: 100%;">
         <CellGroup>
           <Cell title="健康档案" to="/personal/input"   name="4" extra="录入" />
         </CellGroup>
@@ -61,5 +61,4 @@
     margin: 0 auto ;
     top: 100px;
   }
-
 </style>

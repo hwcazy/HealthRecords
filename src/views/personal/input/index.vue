@@ -167,6 +167,10 @@
 
           </Col>
         </Row>
+        <FormItem label="单位" prop="contactworkunit">
+          <Input v-model="formValidate.contactworkunit" placeholder="请填写单位"></Input>
+        </FormItem>
+
 
         <Row>
           <Col span="12">
@@ -210,8 +214,8 @@
 
           </Col>
           <Col span="12">
-            <FormItem label="胸围" prop="Bust">
-              <Input v-model="formValidate.Bust" placeholder="请输入胸围"></Input>
+            <FormItem label="胸围" prop="bust">
+              <Input v-model="formValidate.bust" placeholder="请输入胸围"></Input>
             </FormItem>
           </Col>
         </Row>
@@ -220,8 +224,8 @@
         <Row>
           <Col span="12">
 
-            <FormItem label="臀围" prop="Hipline">
-              <Input v-model="formValidate.Hipline" placeholder="请输入臀围"></Input>
+            <FormItem label="臀围" prop="hipline">
+              <Input v-model="formValidate.hipline" placeholder="请输入臀围"></Input>
             </FormItem>
 
           </Col>
@@ -243,11 +247,18 @@
         <FormItem label="血压" prop="bloodpressure">
           <Input v-model="formValidate.bloodpressure" placeholder="请输入血压"></Input>
         </FormItem>
+
+
         <Row>
+          <FormItem label="传染病史" prop="historyinfection">
+            <Input v-model="formValidate.historyinfection" placeholder="请填写传染病史"></Input>
+          </FormItem>
+
+
           <Col span="12">
             <FormItem label="药物过敏史1" prop="drugallergy1">
               <Select v-model="formValidate.drugallergy1" placeholder="请选择药物过敏史">
-                <Option value="亲霉素">亲霉素</Option>
+                <Option value="青霉素">青霉素</Option>
                 <Option value="链霉素">链霉素</Option>
                 <Option value="磺胺类">磺胺类</Option>
                 <Option value="普鲁卡因">普鲁卡因</Option>
@@ -261,7 +272,7 @@
           <Col span="12">
             <FormItem label="药物过敏史2" prop="drugallergy2">
               <Select v-model="formValidate.drugallergy2" placeholder="请选择药物过敏史">
-                <Option value="亲霉素">亲霉素</Option>
+                <Option value="青霉素">青霉素</Option>
                 <Option value="链霉素">链霉素</Option>
                 <Option value="磺胺类">磺胺类</Option>
                 <Option value="普鲁卡因">普鲁卡因</Option>
@@ -333,8 +344,8 @@
 
         <Row>
           <Col span="12">
-            <FormItem label="外伤及手术史" prop="Historyofsurgery">
-              <Select v-model="formValidate.Historyofsurgery" placeholder="请选择外伤及手术史">
+            <FormItem label="外伤及手术史" prop="operation1">
+              <Select v-model="formValidate.operation1" placeholder="请选择外伤及手术史">
                 <Option value="胸腔">胸腔</Option>
                 <Option value="腹腔">腹腔</Option>
                 <Option value="头部">头部</Option>
@@ -344,11 +355,59 @@
           </Col>
           <Col span="12">
 
-            <FormItem label="日期" prop="Historyofsurgery_day">
-              <DatePicker v-model="formValidate.Historyofsurgery_day" type="date" placeholder="选择日期"></DatePicker>
+            <FormItem label="日期" prop="operationdate1">
+              <DatePicker v-model="formValidate.operationdate1" type="date" placeholder="选择日期"></DatePicker>
             </FormItem>
           </Col>
         </Row>
+
+        <Row>
+          <Col span="12">
+            <FormItem label="外伤及手术史" prop="operation2">
+              <Select v-model="formValidate.operation2" placeholder="请选择外伤及手术史">
+                <Option value="胸腔">胸腔</Option>
+                <Option value="腹腔">腹腔</Option>
+                <Option value="头部">头部</Option>
+                <Option value="不确定">不确定</Option>
+              </Select>
+            </FormItem>
+          </Col>
+          <Col span="12">
+
+            <FormItem label="日期" prop="operationdate2">
+              <DatePicker v-model="formValidate.operationdate2" type="date" placeholder="选择日期"></DatePicker>
+            </FormItem>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col span="12">
+            <FormItem label="输血" prop="transfusion1">
+              <Input v-model="formValidate.transfusion1" placeholder="请填写输血量"></Input>
+            </FormItem>
+          </Col>
+          <Col span="12">
+
+            <FormItem label="输血日期" prop="transfusiondate1">
+              <DatePicker v-model="formValidate.transfusiondate1" type="date" placeholder="选择日期"></DatePicker>
+            </FormItem>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col span="12">
+            <FormItem label="输血" prop="transfusion2">
+              <Input v-model="formValidate.transfusion2" placeholder="请填写输血量"></Input>
+            </FormItem>
+          </Col>
+          <Col span="12">
+
+            <FormItem label="输血日期" prop="transfusiondate2">
+              <DatePicker v-model="formValidate.transfusiondate2" type="date" placeholder="选择日期"></DatePicker>
+            </FormItem>
+          </Col>
+        </Row>
+
       </Card>
 
       <Card title="家族病史" :padding="0" shadow style="width: 100%;">
@@ -480,11 +539,13 @@
 <script>
   import Bartitle from '@/components/bartitle'
   import {URI} from '../../../constants/uri'
-
+  import axios from 'axios'
+  import Unix from '@/utils/Unix'
   export default {
 
     components: {
       Bartitle,
+      Unix,
 
     },
     mounted() {
@@ -538,7 +599,7 @@
           contacter: '',
           Nation: '',
           gender: '',
-          birth_day: '',
+          birth_day: new Date(),
           Maritalstatus: '',
           Careertype: '',
           DegreeofEducation: '',
@@ -550,15 +611,26 @@
           waistline: '',
           Pasthistory1: '',
           Pasthistory2: '',
-          Pasthistory_day1: '',
-          Pasthistory_day2: '',
+          Pasthistory_day1:new Date(),
+          Pasthistory_day2: new Date(),
           father: '',
           mother: '',
           Brothersandsisters: '',
           housingtype: '',
           postion: '',
           floor: '',
+          historyinfection: '',
+          transfusion1: '',
+          transfusiondate1:new Date(),
+          transfusion2: '',
+          transfusiondate2:new Date(),
           area: [],
+          operation1: '',
+          operationdate1:new Date(),
+          operation2: '',
+          operationdate2:new Date(),
+          bust: '',
+          contactworkunit: '',
         },
         ruleValidate: {
           name: [
@@ -666,7 +738,7 @@
               cardno: this.formValidate.idnumber,
               age: this.formValidate.age,
               nation: this.formValidate.nation,
-              birthday: this.formValidate.birth_day,
+              birthday: Unix.unixToDate(this.formValidate.birth_day),
               marriage: this.formValidate.Maritalstatus,
               workunit: this.formValidate.workunit,
 
@@ -683,7 +755,7 @@
               contact: this.formValidate.contacter,
               contactphone: this.formValidate.contactphone,
               familybackground: this.formValidate.frequency,
-              contactworkunit: '',
+              contactworkunit: this.formValidate.contactworkunit,
               height: this.formValidate.height,
               weight: this.formValidate.weight,
               bust: this.formValidate.bust,
@@ -694,21 +766,21 @@
               drugallergy1: this.formValidate.drugallergy1,
               drugallergy2: this.formValidate.drugallergy2,
               pastillnesses1: this.formValidate.Pasthistory1,
-              pidate1: this.formValidate.Pasthistory_day1,
+              pidate1: Unix.unixToDate(this.formValidate.Pasthistory_day1),
               pastillnesses2: this.formValidate.Pasthistory2,
-              pidate2: this.formValidate.Pasthistory_day2,
+              pidate2: Unix.unixToDate(this.formValidate.Pasthistory_day2),
 
-              historyinfection: '',
+              historyinfection:this.formValidate.historyinfection,
 
-              operation1: '',
-              operationdate1: '',
-              operation2: '',
-              operationdate2: '',
+              operation1:this.formValidate.operation1,
+              operationdate1:Unix.unixToDate(this.formValidate.operationdate1),
+              operation2:this.formValidate.operation2,
+              operationdate2:Unix.unixToDate(this.formValidate.operationdate2),
 
-              transfusion1: '',
-              transfusiondate1: '',
-              transfusion2: '',
-              transfusiondate2: '',
+              transfusion1:this.formValidate.transfusion1,
+              transfusiondate1:Unix.unixToDate(this.formValidate.transfusiondate1),
+              transfusion2:this.formValidate.transfusion2,
+              transfusiondate2:Unix.unixToDate(this.formValidate.transfusiondate2),
 
               fatherhistory: this.formValidate.father,
               motherhistory: this.formValidate.mother,
@@ -771,7 +843,10 @@
 <style scoped>
 
   Form {
+
     color: cornflowerblue;
     background-color: white;
+    margin-right: 15px;
+    margin-left: 15px;
   }
 </style>

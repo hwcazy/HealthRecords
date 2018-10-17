@@ -5,7 +5,7 @@
       <img src="../../assets/logo.png">
 
       <h3>登录</h3>
-      <p v-show="showTishi">{{tishi}}</p>
+
       <input type="text" placeholder="请输入用户名" v-model="username">
       <input type="password" placeholder="请输入密码" v-model="password">
       <button v-on:click="login">登录</button>
@@ -14,7 +14,7 @@
 
     <div class="register-wrap" v-show="showRegister">
       <h3>注册</h3>
-      <p v-show="showTishi">{{tishi}}</p>
+
       <input type="text" placeholder="请输入用户名" v-model="newUsername">
       <input type="password" placeholder="请输入密码" v-model="newPassword">
       <button v-on:click="register">注册</button>
@@ -41,8 +41,6 @@
       return {
         showLogin: true,
         showRegister: false,
-        showTishi: false,
-        tishi: '',
         username: '',
         password: '',
         newUsername: '',
@@ -52,12 +50,15 @@
     },
 
     methods: {
+
+
+
       login() {
         if (this.username == "" || this.password == "") {
           alert("请输入用户名或密码")
         } else {
 
-// 发送一个 POST 请求
+          // 发送一个 POST 请求
           this.$Spin.show();
           setTimeout(() => {
             this.$Spin.hide();
@@ -71,19 +72,16 @@
             console.log(res.data)
             this.item = res.data
             if (res.data.msgCode == 0) {
-              this.tishi = "登录成功"
-              this.showTishi = true
+              this.$Message.success('登录成功');
               setCookie('username', this.username, 1000 * 60);
               sessionStorage.setItem('patientno',JSON.stringify(res.data.data.patientno));
               setTimeout(function () {
                 this.$router.push({path: 'home', query: {id: 1}})
               }.bind(this), 1000)
             } else if (res.data.msgCode == -1) {
-              this.tishi = "密码输入错误"
-              this.showTishi = true
+              this.$Message.error('密码输入错误');
             } else {
-              this.tishi = "该用户不存在"
-              this.showTishi = true
+              this.$Message.error('该用户不存在');
             }
           })
         }
@@ -91,12 +89,10 @@
       ToRegister() {
         this.showRegister = true
         this.showLogin = false
-        this.showTishi = false
       },
       ToLogin() {
         this.showRegister = false
         this.showLogin = true
-        this.showTishi = false
       },
       register: function () {
         if (this.newUsername == "" || this.newPassword == "") {
@@ -114,14 +110,12 @@
             this.$Spin.hide();
             console.log(res)
             if (res.data.msgCode == 0) {
-              this.tishi = "注册成功"
-              this.showTishi = true
+              this.$Message.success('注册成功');
               this.username = ''
               this.password = ''
               setTimeout(function () {
                 this.showRegister = false
                 this.showLogin = true
-                this.showTishi = false
               }.bind(this), 1000)
             } else if (res.data.msgCode == -1) {
               this.$Message.error(res.data.msg);

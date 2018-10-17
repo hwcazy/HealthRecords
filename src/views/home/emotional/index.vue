@@ -96,8 +96,10 @@
 <style  scoped>
 
   Form{
+    margin-top: 20px;
     color: cornflowerblue;
     background-color: white;
+    margin-right: 15px;
   }
 
 </style>

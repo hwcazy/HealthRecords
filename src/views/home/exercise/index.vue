@@ -67,8 +67,8 @@
     data(){
       return{
         formValidate: {
-          starttime: '',
-          endtime: '',
+          starttime:new Date(),
+          endtime: new Date(),
           exercisetime: '',
           motiontype: '',
           remark:'',
@@ -149,8 +149,10 @@
 <style  scoped>
 
   Form{
+    margin-top: 20px;
     color: cornflowerblue;
     background-color: white;
+    margin-right: 15px;
   }
 
 </style>

@@ -31,7 +31,7 @@
         <Input v-model="formValidate.Department" placeholder="请填写就诊科室"></Input>
       </FormItem>
       <FormItem label="就诊医生" prop="doctor">
-        <Input v-model="formValidate.doctor" placeholder="请填写就诊医生"></Input>
+        <Input v-model="formValidate.clinicdeDoctor" placeholder="请填写就诊医生"></Input>
       </FormItem>
 
       <FormItem label="就诊时间">
@@ -50,8 +50,8 @@
         </Row>
       </FormItem>
 
-      <FormItem label="是否痊愈" prop="gender">
-        <RadioGroup v-model="formValidate.gender">
+      <FormItem label="是否痊愈" prop="recovery">
+        <RadioGroup v-model="formValidate.recovery">
           <Radio label="是">是</Radio>
           <Radio label="否">否</Radio>
         </RadioGroup>
@@ -88,6 +88,10 @@
       <FormItem label="饮水量" prop="waternum">
         <Input v-model="formValidate.waternum" placeholder="请填写饮水量"></Input>
       </FormItem>
+      <FormItem label="穿衣情况" prop="dress">
+        <Input v-model="formValidate.dress" placeholder="请填写穿衣情况"></Input>
+      </FormItem>
+
 
       <Row>
         <Col span="12">
@@ -111,14 +115,14 @@
 
       <Row>
         <Col span="12">
-          <FormItem label="饭量" prop="Mealamount">
-            <Input v-model="formValidate.Mealamount" placeholder="请填写饭量"></Input>
+          <FormItem label="饭量" prop="appetite">
+            <Input v-model="formValidate.appetite" placeholder="请填写饭量"></Input>
           </FormItem>
         </Col>
 
         <Col span="12">
-          <FormItem label="睡眠时长(h)" prop="sleeptime">
-            <Input v-model="formValidate.sleeptime" placeholder="请填写睡眠时长"></Input>
+          <FormItem label="睡眠时长(h)" prop="sleephours">
+            <Input v-model="formValidate.sleephours" placeholder="请填写睡眠时长"></Input>
           </FormItem>
         </Col>
       </Row>
@@ -137,6 +141,10 @@
         </Col>
       </Row>
 
+      <FormItem label="备注" prop="remark2">
+        <Input v-model="formValidate.remark2" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
+               placeholder="填写备注信息..."></Input>
+      </FormItem>
 
       <FormItem>
         <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
@@ -148,13 +156,15 @@
 </template>
 
 <script>
+
   import Bartitle from '@/components/bartitle'
   import {URI} from '../../../constants/uri'
   import axios from 'axios'
-
+  import Unix from '@/utils/Unix'
   export default {
     components: {
-      Bartitle
+      Bartitle,
+      Unix,
     },
     mounted() {
     },
@@ -163,16 +173,17 @@
         formValidate: {
           hospital: '',
           Department: '',
-          doctor: '',
+          clinicdeDoctor: '',
           druginfo: '',
           count: '',
           frequency: '',
           Symptom: '',
-          gender: '',
-          start_date: '',
-          end_date: '',
-          date: '',
-          time: '',
+          dateentry: new Date(),
+          recovery: '',
+          start_date: new Date(),
+          end_date: new Date(),
+          date: new Date(),
+          time: new Date(),
           remark: '',
           desc: '',
           waternum: '',
@@ -182,6 +193,9 @@
           animalheat: '',
           appetite: '',
           sleephours: '',
+          remark2: '',
+          dress: '',
+          recovery: '',
         },
         ruleValidate: {
           hospital: [
@@ -190,10 +204,10 @@
           Department: [
             {required: true, message: '就诊科室不能为空', trigger: 'blur'}
           ],
-          doctor: [
+          clinicdeDoctor: [
             {required: true, message: '就诊医生不能为空', trigger: 'blur'}
           ],
-          gender: [
+          recovery: [
             {required: true, message: '请选择是否痊愈', trigger: 'change'}
           ],
           druginfo: [
@@ -209,8 +223,6 @@
           Symptom: [
             {required: true, message: '请选择症状', trigger: 'change'}
           ],
-
-
           start_date: [
             {required: true, type: 'date', message: '请选择开始时间', trigger: 'change'}
           ],
@@ -222,15 +234,8 @@
           ],
           time: [
             {required: true, type: 'string', message: '请选择就诊时间', trigger: 'change'}
-          ],
-          desc: [
-            {required: true, message: '请填写诊断信息', trigger: 'blur'},
-            {type: 'string', min: 20, message: '诊断信息不少于20个字', trigger: 'blur'}
-          ],
-          remark: [
-            {required: true, message: '请填写备注信息', trigger: 'blur'},
-            {type: 'string', min: 20, message: '备注信息不少于20个字', trigger: 'blur'}
           ]
+
         }
       }
     },
@@ -240,7 +245,6 @@
       handleSubmit(name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
-
             this.$Spin.show();
             setTimeout(() => {
               this.$Spin.hide();
@@ -248,20 +252,21 @@
             axios.post(URI + '/api/HealthSys/ColdRecord',
               {
                 patientno: JSON.parse(sessionStorage.getItem("patientno")),
-                starttime: this.formValidate.start_date,
-                endtime: this.formValidate.end_date,
+                starttime: Unix.unixToDate(this.formValidate.start_date),
+                endtime: Unix.unixToDate(this.formValidate.end_date),
+                dateentry: Unix.unixToDate(this.formValidate.dateentry),
                 clinichospital: this.formValidate.hospital,
                 diagnose: this.formValidate.desc,
-                diagnosistime: "",
+                diagnosistime: Unix.unixToDate(this.formValidate.date)+" "+this.formValidate.time,
                 clinicdepartment: this.formValidate.Department,
-                clinicdeDoctor: this.formValidate.Doctor,
+                clinicdeDoctor: this.formValidate.clinicdeDoctor,
                 recovery: this.formValidate.recovery,
                 remark: this.formValidate.remark,
                 symptom: this.formValidate.Symptom,
                 drug: this.formValidate.druginfo,
                 drugnum: this.formValidate.count,
                 drugfrequency: this.formValidate.frequency,
-                dress: "",
+                dress: this.formValidate.dress,
                 appetite: this.formValidate.appetite,
                 watertype: this.formValidate.watertype,
                 waternum: this.formValidate.waternum,
@@ -269,11 +274,12 @@
                 weather: this.formValidate.weather,
                 animalheat: this.formValidate.animalheat,
                 sleephours: this.formValidate.sleephours,
-                remark2: "",
+                remark2: this.formValidate.remark2,
 
               }).then((res) => {
               this.$Spin.hide();
               console.log(res.data)
+              console.log(Unix.unixToDate(this.formValidate.date)+" "+this.formValidate.time)
               this.item = res.data
               if (res.data.msgCode == 0) {
                 this.$Message.success('信息录入成功!');
@@ -303,8 +309,10 @@
 <style scoped>
 
   Form {
+    margin-top: 20px;
     color: cornflowerblue;
     background-color: white;
+    margin-right: 15px;
   }
 
 </style>

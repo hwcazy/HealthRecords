@@ -108,6 +108,16 @@ export const appRouter = [
     ]
   },
   {
+    path: '/home/sleepshow',
+    name: 'sleepshow',
+    title: '感冒记录',
+    icon: 'navicon',
+    component: Frame,
+    children: [
+      {path: 'sleepshow', title: '感冒记录', name: 'home-sleepshow', component: () =>  import('@/views/home/sleepshow')},
+    ]
+  },
+  {
     path: '/experience',
     name: 'experience',
     title: '体检系统',

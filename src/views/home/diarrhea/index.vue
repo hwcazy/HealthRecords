@@ -7,13 +7,13 @@
       <Row>
         <Col span="12">
           <FormItem label="开始时间" prop="starttime">
-            <TimePicker type="time" placeholder="选择时间" v-model="formValidate.starttime"></TimePicker>
+            <DatePicker type="date" placeholder="选择时间" v-model="formValidate.starttime"></DatePicker>
           </FormItem>
         </Col>
 
         <Col span="12">
           <FormItem label="结束时间" prop="endtime">
-            <TimePicker type="time" placeholder="选择时间" v-model="formValidate.endtime"></TimePicker>
+            <DatePicker type="date" placeholder="选择时间" v-model="formValidate.endtime"></DatePicker>
           </FormItem>
         </Col>
       </Row>
@@ -26,7 +26,7 @@
 
         <Col span="12">
           <FormItem label="诊断时间" prop="Diagnosistime">
-            <TimePicker type="time" placeholder="选择时间" v-model="formValidate.Diagnosistime"></TimePicker>
+            <DatePicker type="date" placeholder="选择时间" v-model="formValidate.Diagnosistime"></DatePicker>
           </FormItem>
         </Col>
       </Row>
@@ -39,8 +39,8 @@
         </Col>
 
         <Col span="12">
-          <FormItem label="就诊医生" prop="Doctor">
-            <Input v-model="formValidate.Doctor" placeholder="请填写就诊医生"></Input>
+          <FormItem label="就诊医生" prop="clinicdedoctor">
+            <Input v-model="formValidate.clinicdedoctor" placeholder="请填写就诊医生"></Input>
           </FormItem>
         </Col>
       </Row>
@@ -54,8 +54,8 @@
       </FormItem>
 
 
-      <FormItem label="病前饮食" prop="Predisease">
-        <Input v-model="formValidate.Predisease" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="填写病前饮食..."></Input>
+      <FormItem label="病前饮食" prop="repast">
+        <Input v-model="formValidate.repast" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="填写病前饮食..."></Input>
       </FormItem>
 
 
@@ -92,8 +92,8 @@
         </Col>
 
         <Col span="12">
-          <FormItem label="如厕次数" prop="toiletcount">
-            <Input v-model="formValidate.toiletcount" placeholder="请填写如厕次数"></Input>
+          <FormItem label="如厕次数" prop="defcationnum">
+            <Input v-model="formValidate.defcationnum" placeholder="请填写如厕次数"></Input>
           </FormItem>
         </Col>
       </Row>
@@ -152,8 +152,15 @@
       <FormItem label="饮水量" prop="waternum">
         <Input v-model="formValidate.waternum" placeholder="请填写饮水量"></Input>
       </FormItem>
+      <FormItem label="穿衣情况" prop="dress">
+        <Input v-model="formValidate.dress" placeholder="请填写穿衣情况"></Input>
+      </FormItem>
       <FormItem label="症状" prop="Symptom">
         <Input v-model="formValidate.Symptom" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="填写症状..."></Input>
+      </FormItem>
+
+      <FormItem label="大便形态" prop="stoolform">
+        <Input v-model="formValidate.stoolform" placeholder="请填写大便形态"></Input>
       </FormItem>
 
       <FormItem label="备注" prop="remark2">
@@ -175,31 +182,33 @@
 
 <script>
   import Bartitle from '@/components/bartitle'
-  import {shadowCloneToNewJson} from "../../../utils/clone";
+  import {URI} from '../../../constants/uri'
   import axios from 'axios'
+  import Unix from '@/utils/Unix'
   export default {
     components:{
-      Bartitle
+      Bartitle,
+      Unix,
     },
     mounted() {
     },
     data(){
       return{
         formValidate: {
-          starttime: '',
-          endtime: '',
-          Diagnosistime: '',
+          starttime:new Date(),
+          endtime:new Date(),
+          Diagnosistime:new Date(),
           hospital: '',
           druginfo: '',
           Department: '',
-          Doctor: '',
+          clinicdedoctor: '',
           recovery: '',
-          Predisease: '',
+          repast: '',
           Diagnosis: '',
 
           drugbumber: '',
           drugfrequency: '',
-          toiletcount: '',
+
 
           watertype: '',
           workhours: '',
@@ -207,12 +216,13 @@
           sleephours: '',
           animalheat: '',
           weather: '',
-
+          defcationnum: '',
           waternum: '',
           Symptom: '',
-
+          stoolform: '',
           remark1: '',
           remark2: '',
+          dress: '',
 
         },
         ruleValidate: {
@@ -235,20 +245,20 @@
             axios.post(URI+'/api/HealthSys/DiarrheaRecord',
               {
                 patientno:JSON.parse(sessionStorage.getItem("patientno")),
-                starttime: this.formValidate.starttime,
-                endtime: this.formValidate.endtime,
+                starttime: Unix.unixToDate(this.formValidate.starttime),
+                endtime: Unix.unixToDate(this.formValidate.endtime),
                 cinichospital: this.formValidate.hospital,
                 diagnose: this.formValidate.Diagnosis,
-                diagnosistime: this.formValidate.Diagnosistime,
+                diagnosistime: Unix.unixToDate(this.formValidate.Diagnosistime),
                 clinicdepartment: this.formValidate.Department,
-                clinicdeDoctor : this.formValidate.Doctor,
+                clinicdedoctor : this.formValidate.clinicdedoctor,
                 recovery: this.formValidate.recovery,
                 remark : this.formValidate.remark1,
                 symptom: this.formValidate.Symptom,
                 drug: this.formValidate.druginfo,
                 drugnum: this.formValidate.drugbumber,
                 drugfrequency : this.formValidate.drugfrequency,
-                dress: "",
+                dress: this.formValidate.dress,
                 appetite: this.formValidate.appetite,
                 watertype: this.formValidate.watertype,
                 waternum: this.formValidate.waternum,
@@ -257,6 +267,9 @@
                 animalheat: this.formValidate.animalheat,
                 sleephours: this.formValidate.sleephours,
                 remark2: this.formValidate.remark2,
+                stoolform: this.formValidate.stoolform,
+                defcationnum: this.formValidate.defcationnum,
+                repast: this.formValidate.repast,
               }).then((res) => {
               this.$Spin.hide();
               console.log(res.data)
@@ -290,8 +303,10 @@
 <style  scoped>
 
   Form{
+    margin-top: 20px;
     color: cornflowerblue;
     background-color: white;
+    margin-right: 15px;
   }
 
 </style>

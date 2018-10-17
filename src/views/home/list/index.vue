@@ -1,29 +1,82 @@
 <template>
     <div>
 
+
+
       <img src="../image/main_img.jpg" height="280" width="100%" />
       <router-view class="Router"></router-view>
       <Row type="flex" >
-        <Col span="6" order="1"><router-link to="/home/sleep">
-          睡眠</router-link></Col>
-        <Col span="6" order="2"><router-link to="/home/statistics">
-          感冒</router-link></Col>
-        <Col span="6" order="3"><router-link to="/home/diarrhea">
-          腹泻</router-link></Col>
-        <Col span="6" order="4"><router-link to="/home/constipation">
-          便秘</router-link></Col>
+        <Col span="6" order="1">
+
+          <router-link to="/home/sleepshow">
+            <div class="icon">
+              <Icon type="md-clock" style="font-size: 16px" />
+              <span>睡眠</span>
+            </div>
+
+          </router-link>
+        </Col>
+        <Col span="6" order="2">
+          <router-link to="/home/statistics">
+            <div class="icon">
+              <Icon type="md-color-filter" style="font-size: 16px" />
+              <span>感冒</span>
+            </div>
+
+          </router-link>
+        </Col>
+        <Col span="6" order="3">
+          <router-link to="/home/diarrhea">
+            <div class="icon">
+              <Icon type="logo-freebsd-devil" style="font-size: 16px" />
+              <span>腹泻</span>
+            </div>
+
+          </router-link></Col>
+        <Col span="6" order="4">
+          <router-link to="/home/constipation">
+            <div class="icon">
+              <Icon type="ios-pint" style="font-size: 16px" />
+              <span>便秘</span>
+            </div>
+
+          </router-link></Col>
       </Row>
 
 
       <Row type="flex" >
-        <Col span="6" order="5"><router-link to="/home/wine">
-          饮酒</router-link></Col>
-        <Col span="6" order="6"><router-link to="/home/diet">
-          饮食</router-link></Col>
-        <Col span="6" order="7"><router-link to="/home/emotional">
-          情绪化</router-link></Col>
-        <Col span="6" order="8"><router-link to="/home/exercise">
-          锻炼</router-link></Col>
+        <Col span="6" order="5">
+          <router-link to="/home/wine">
+            <div class="icon">
+              <Icon type="ios-wine" style="font-size: 16px" />
+              <span>饮酒</span>
+            </div>
+
+          </router-link></Col>
+        <Col span="6" order="6">
+          <router-link to="/home/diet">
+            <div class="icon">
+              <Icon type="ios-restaurant" style="font-size: 16px" />
+              <span>饮食</span>
+            </div>
+
+          </router-link></Col>
+        <Col span="6" order="7">
+          <router-link to="/home/emotional">
+            <div class="icon">
+              <Icon type="md-happy" style="font-size: 16px" />
+              <span>情绪化</span>
+            </div>
+
+          </router-link></Col>
+        <Col span="6" order="8">
+          <router-link to="/home/exercise">
+            <div class="icon">
+              <Icon type="md-bicycle" style="font-size: 16px" />
+              <span>锻炼</span>
+            </div>
+             </router-link>
+        </Col>
       </Row>
 
     </div>
@@ -33,15 +86,23 @@
 </template>
 
 <script>
-  import {shadowCloneToNewJson} from "../../../utils/clone";
+
   import axios from 'axios'
     export default {
+
       mounted(){
         //this.GetCode()
 
+
+
       },
+
+
+
       data() {
         return {
+
+
           BaseUrl: "https://open.weixin.qq.com/connect/oauth2/authorize?",
           JsApiData:"",
 
@@ -195,6 +256,16 @@
     height: 80px;
     background-color: cornflowerblue;
   }
+  .icon{
+    position: relative;
+  }
+  .icon i{
+    display: block;
+    position: relative;
+    top: 20px;
+    font-size: 52px;
+    line-height: 12px;
+  }
   .ivu-col-order-5 {
     height: 80px;
     line-height: 80px;
@@ -214,6 +285,10 @@
     height: 80px;
     line-height: 80px;
     background-color: gold;
+  }
+
+  a{
+    color: #fff;
   }
 
 
