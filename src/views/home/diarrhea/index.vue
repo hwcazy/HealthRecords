@@ -87,13 +87,17 @@
       <Row>
         <Col span="12">
           <FormItem label="用药次数" prop="drugfrequency">
-            <Input v-model="formValidate.drugfrequency" placeholder="请填写用药次数"></Input>
+            <div style="display: inline">
+            <InputNumber v-model="formValidate.drugfrequency" placeholder="请填写用药次数"></InputNumber>次
+            </div>
           </FormItem>
         </Col>
 
         <Col span="12">
           <FormItem label="如厕次数" prop="defcationnum">
-            <Input v-model="formValidate.defcationnum" placeholder="请填写如厕次数"></Input>
+            <div style="display: inline">
+            <InputNumber v-model="formValidate.defcationnum" placeholder="请填写如厕次数"></InputNumber>次
+            </div>
           </FormItem>
         </Col>
       </Row>
@@ -115,7 +119,7 @@
 
         <Col span="12">
           <FormItem label="工作时长(h)" prop="workhours">
-            <Input v-model="formValidate.workhours" placeholder="请填写工作时长"></Input>
+            <InputNumber v-model="formValidate.workhours" placeholder="请填写工作时长"></InputNumber>
           </FormItem>
         </Col>
       </Row>
@@ -129,7 +133,7 @@
 
         <Col span="12">
           <FormItem label="睡眠时长(h)" prop="sleephours">
-            <Input v-model="formValidate.sleephours" placeholder="请填写睡眠时长"></Input>
+            <InputNumber v-model="formValidate.sleephours" placeholder="请填写睡眠时长"></InputNumber>
           </FormItem>
         </Col>
       </Row>
@@ -138,19 +142,25 @@
       <Row>
         <Col span="12">
           <FormItem label="体温" prop="animalheat">
-            <Input v-model="formValidate.animalheat" placeholder="请填写体温"></Input>
+            <div style="display: inline">
+            <InputNumber v-model="formValidate.animalheat" placeholder="请填写体温"></InputNumber>°C
+            </div>
           </FormItem>
         </Col>
 
         <Col span="12">
           <FormItem label="气温" prop="weather">
-            <Input v-model="formValidate.weather" placeholder="请填写气温"></Input>
+            <div style="display: inline">
+            <InputNumber v-model="formValidate.weather" placeholder="请填写气温"></InputNumber>°C
+            </div>
           </FormItem>
         </Col>
       </Row>
 
       <FormItem label="饮水量" prop="waternum">
-        <Input v-model="formValidate.waternum" placeholder="请填写饮水量"></Input>
+        <div style="display: inline">
+        <InputNumber v-model="formValidate.waternum" placeholder="请填写饮水量"></InputNumber>ml
+        </div>
       </FormItem>
       <FormItem label="穿衣情况" prop="dress">
         <Input v-model="formValidate.dress" placeholder="请填写穿衣情况"></Input>
@@ -207,17 +217,17 @@
           Diagnosis: '',
 
           drugbumber: '',
-          drugfrequency: '',
+          drugfrequency: 0,
 
 
           watertype: '',
-          workhours: '',
+          workhours:0,
           appetite: '',
-          sleephours: '',
-          animalheat: '',
-          weather: '',
-          defcationnum: '',
-          waternum: '',
+          sleephours: 0,
+          animalheat: 0,
+          weather: 0,
+          defcationnum: 0,
+          waternum: 0,
           Symptom: '',
           stoolform: '',
           remark1: '',
@@ -278,7 +288,7 @@
                 this.$Message.success('信息录入成功!');
                 setTimeout(function () {
                   this.$router.push({name: 'home'})
-                }.bind(this), 1000)
+                }.bind(this), 50)
               } else if (res.data.msgCode == -1) {
               } else {
               }

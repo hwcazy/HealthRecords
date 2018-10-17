@@ -60,10 +60,7 @@
         <Input v-model="formValidate.desc" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
                placeholder="填写诊断信息..."></Input>
       </FormItem>
-      <FormItem label="备注" prop="remark">
-        <Input v-model="formValidate.remark" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
-               placeholder="填写备注信息..."></Input>
-      </FormItem>
+
 
 
       <FormItem label="症状" prop="Symptom">
@@ -78,15 +75,24 @@
       <FormItem label="用药信息" prop="druginfo">
         <Input v-model="formValidate.druginfo" placeholder="请输入用药信息"></Input>
       </FormItem>
-      <FormItem label="用药数量" prop="count">
-        <Input v-model="formValidate.count" placeholder="请输入用药数量"></Input>
-      </FormItem>
-      <FormItem label="用药次数" prop="frequency">
-        <Input v-model="formValidate.frequency" placeholder="请输入用药次数"  ></Input>
-      </FormItem>
-
+      <Row>
+        <Col span="12">
+          <FormItem label="用药数量" prop="count">
+            <InputNumber v-model="formValidate.count" placeholder="请输入用药数量"></InputNumber>
+          </FormItem>
+        </Col>
+        <Col span="12">
+          <FormItem label="用药次数" prop="frequency">
+            <div style="display: inline">
+            <InputNumber v-model="formValidate.frequency" placeholder="请输入用药次数"></InputNumber>次
+            </div>
+          </FormItem>
+        </Col>
+      </Row>
       <FormItem label="饮水量" prop="waternum">
-        <Input v-model="formValidate.waternum" placeholder="请填写饮水量"></Input>
+        <div style="display: inline">
+        <InputNumber v-model="formValidate.waternum" placeholder="请填写饮水量"></InputNumber>ml
+        </div>
       </FormItem>
       <FormItem label="穿衣情况" prop="dress">
         <Input v-model="formValidate.dress" placeholder="请填写穿衣情况"></Input>
@@ -108,7 +114,7 @@
 
         <Col span="12">
           <FormItem label="工作时长(h)" prop="workhours">
-            <Input v-model="formValidate.workhours" placeholder="请填写工作时长"></Input>
+            <InputNumber v-model="formValidate.workhours" placeholder="请填写工作时长"></InputNumber>
           </FormItem>
         </Col>
       </Row>
@@ -122,7 +128,7 @@
 
         <Col span="12">
           <FormItem label="睡眠时长(h)" prop="sleephours">
-            <Input v-model="formValidate.sleephours" placeholder="请填写睡眠时长"></Input>
+            <InputNumber v-model="formValidate.sleephours" placeholder="请填写睡眠时长"></InputNumber>
           </FormItem>
         </Col>
       </Row>
@@ -130,13 +136,17 @@
       <Row>
         <Col span="12">
           <FormItem label="体温" prop="animalheat">
-            <Input v-model="formValidate.animalheat" placeholder="请填写体温"></Input>
+            <div style="display: inline">
+            <InputNumber v-model="formValidate.animalheat" placeholder="请填写体温"></InputNumber>°C
+            </div>
           </FormItem>
         </Col>
 
         <Col span="12">
           <FormItem label="气温" prop="weather">
-            <Input v-model="formValidate.weather" placeholder="请填写气温"></Input>
+            <div style="display: inline">
+            <InputNumber v-model="formValidate.weather" placeholder="请填写气温"></InputNumber>°C
+            </div>
           </FormItem>
         </Col>
       </Row>
@@ -161,6 +171,7 @@
   import {URI} from '../../../constants/uri'
   import axios from 'axios'
   import Unix from '@/utils/Unix'
+
   export default {
     components: {
       Bartitle,
@@ -175,8 +186,8 @@
           Department: '',
           clinicdeDoctor: '',
           druginfo: '',
-          count: '',
-          frequency: '',
+          count: 0,
+          frequency: 0,
           Symptom: '',
           dateentry: new Date(),
           recovery: '',
@@ -186,13 +197,13 @@
           time: new Date(),
           remark: '',
           desc: '',
-          waternum: '',
+          waternum: 0,
           watertype: '',
-          workhours: '',
-          weather: '',
-          animalheat: '',
+          workhours: 0,
+          weather: 0,
+          animalheat: 0,
           appetite: '',
-          sleephours: '',
+          sleephours: 0,
           remark2: '',
           dress: '',
           recovery: '',
@@ -212,12 +223,6 @@
           ],
           druginfo: [
             {required: true, message: '用药信息不能为空', trigger: 'blur'}
-          ],
-          count: [
-            {required: true, message: '用药数量不能为空', trigger: 'blur'}
-          ],
-          frequency: [
-            {required: true, message: '用药次数不能为空', trigger: 'blur'}
           ],
 
           Symptom: [
@@ -257,7 +262,7 @@
                 dateentry: Unix.unixToDate(this.formValidate.dateentry),
                 clinichospital: this.formValidate.hospital,
                 diagnose: this.formValidate.desc,
-                diagnosistime: Unix.unixToDate(this.formValidate.date)+" "+this.formValidate.time,
+                diagnosistime: Unix.unixToDate(this.formValidate.date) + " " + this.formValidate.time,
                 clinicdepartment: this.formValidate.Department,
                 clinicdeDoctor: this.formValidate.clinicdeDoctor,
                 recovery: this.formValidate.recovery,
@@ -279,13 +284,13 @@
               }).then((res) => {
               this.$Spin.hide();
               console.log(res.data)
-              console.log(Unix.unixToDate(this.formValidate.date)+" "+this.formValidate.time)
+              console.log(Unix.unixToDate(this.formValidate.date) + " " + this.formValidate.time)
               this.item = res.data
               if (res.data.msgCode == 0) {
                 this.$Message.success('信息录入成功!');
                 setTimeout(function () {
                   this.$router.push({name: 'statistics'})
-                }.bind(this), 1000)
+                }.bind(this), 50)
               } else if (res.data.msgCode == -1) {
               } else {
               }

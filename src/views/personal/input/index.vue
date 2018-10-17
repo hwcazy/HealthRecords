@@ -13,8 +13,8 @@
           </Col>
 
           <Col span="12">
-            <FormItem label="性别" prop="gender">
-              <RadioGroup v-model="formValidate.gender">
+            <FormItem label="性别" prop="sex">
+              <RadioGroup v-model="formValidate.sex">
                 <Radio label="男">男</Radio>
                 <Radio label="女">女</Radio>
               </RadioGroup>
@@ -47,8 +47,8 @@
           </Col>
 
           <Col span="12">
-            <FormItem label="民族" prop="Nation">
-              <Select v-model="formValidate.Nation" placeholder="请选择民族">
+            <FormItem label="民族" prop="nation">
+              <Select v-model="formValidate.nation" placeholder="请选择民族">
                 <Option value="汉族">汉族</Option>
                 <Option value="布依族">布依族</Option>
                 <Option value="壮族">壮族</Option>
@@ -597,8 +597,8 @@
           info: '',
           contactphone: '',
           contacter: '',
-          Nation: '',
-          gender: '',
+          nation: '',
+          sex: '',
           birth_day: new Date(),
           Maritalstatus: '',
           Careertype: '',
@@ -630,6 +630,12 @@
           operation2: '',
           operationdate2:new Date(),
           bust: '',
+          height: '',
+          weight: '',
+          hipline: '',
+          bloodpressure: '',
+          drugallergy1: '',
+          drugallergy2: '',
           contactworkunit: '',
         },
         ruleValidate: {
@@ -661,7 +667,7 @@
           contactphone: [
             {required: true, message: '联系人电话不能为空', trigger: 'blur'}
           ],
-          Nation: [
+          nation: [
             {required: true, message: '请选择民族', trigger: 'change'}
           ],
           Maritalstatus: [
@@ -731,8 +737,6 @@
             }, 3000);
             axios.post(URI+'/api/HealthSys/UpdateUser', {
               patientno:JSON.parse(sessionStorage.getItem("patientno")),
-              username: '',
-              password: '',
               name: this.formValidate.name,
               sex: this.formValidate.sex,
               cardno: this.formValidate.idnumber,
@@ -765,10 +769,17 @@
               bloodpressure: this.formValidate.bloodpressure,
               drugallergy1: this.formValidate.drugallergy1,
               drugallergy2: this.formValidate.drugallergy2,
+
               pastillnesses1: this.formValidate.Pasthistory1,
               pidate1: Unix.unixToDate(this.formValidate.Pasthistory_day1),
               pastillnesses2: this.formValidate.Pasthistory2,
               pidate2: Unix.unixToDate(this.formValidate.Pasthistory_day2),
+              pastillnesses3: "",
+              pidate3: "",
+              pastillnesses4: "",
+              pidate4: "",
+              pastillnesses5: "",
+              pidate5: "",
 
               historyinfection:this.formValidate.historyinfection,
 
@@ -776,6 +787,8 @@
               operationdate1:Unix.unixToDate(this.formValidate.operationdate1),
               operation2:this.formValidate.operation2,
               operationdate2:Unix.unixToDate(this.formValidate.operationdate2),
+              operation3: "",
+              operationdate3: "",
 
               transfusion1:this.formValidate.transfusion1,
               transfusiondate1:Unix.unixToDate(this.formValidate.transfusiondate1),
@@ -794,15 +807,10 @@
               this.$Spin.hide();
               console.log(res)
               if (res.data.msgCode == 0) {
-                this.tishi = "更新信息成功"
-                this.showTishi = true
-                this.username = ''
-                this.password = ''
+                this.$Message.success("更新信息成功");
                 setTimeout(function () {
-                  this.showRegister = false
-                  this.showLogin = true
-                  this.showTishi = false
-                }.bind(this), 1000)
+                  this.$router.push({name: 'personal'})
+                }.bind(this), 50)
               } else if (res.data.msgCode == -1) {
                 this.$Message.error(res.data.msg);
               } else {

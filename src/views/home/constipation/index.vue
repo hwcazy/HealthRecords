@@ -55,10 +55,6 @@
       </FormItem>
 
 
-      <FormItem label="备注" prop="remark1">
-        <Input v-model="formValidate.remark1" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
-               placeholder="填写备注信息..."></Input>
-      </FormItem>
 
 
       <Row>
@@ -78,13 +74,19 @@
       <Row>
         <Col span="12">
           <FormItem label="用药次数" prop="drugfrequency">
-            <Input v-model="formValidate.drugfrequency" placeholder="请填写用药次数"></Input>
+            <div style="display: inline">
+              <InputNumber v-model="formValidate.drugfrequency" placeholder="请填写用药次数"></InputNumber>
+              次
+            </div>
           </FormItem>
         </Col>
 
         <Col span="12">
           <FormItem label="如厕次数" prop="toiletcount">
-            <Input v-model="formValidate.toiletcount" placeholder="请填写如厕次数"></Input>
+            <div style="display: inline">
+              <InputNumber v-model="formValidate.toiletcount" placeholder="请填写如厕次数"></InputNumber>
+              次
+            </div>
           </FormItem>
         </Col>
       </Row>
@@ -147,11 +149,10 @@
 
         <Col span="12">
           <FormItem label="吃饭时长(h)" prop="dinehours">
-            <Input v-model="formValidate.dinehours" placeholder="请填写吃饭时长"></Input>
+            <InputNumber v-model="formValidate.dinehours" placeholder="请填写吃饭时长"></InputNumber>
           </FormItem>
         </Col>
       </Row>
-
 
 
       <FormItem label="大便颜色" prop="defecatecolor">
@@ -169,10 +170,6 @@
         <Input v-model="formValidate.stoolnum" placeholder="请填写大便量"></Input>
       </FormItem>
 
-
-      <FormItem label="如厕次数" prop="defcationnum">
-        <Input v-model="formValidate.defcationnum" placeholder="请填写如厕次数"></Input>
-      </FormItem>
 
       <FormItem label="备注" prop="remark2">
         <Input v-model="formValidate.remark2" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
@@ -218,13 +215,13 @@
           date: new Date(),
           time: new Date(),
           drugbumber: '',
-          drugfrequency: '',
-          toiletcount: '',
+          drugfrequency: 0,
+          toiletcount: 0,
           dietetic: '',
           fibretype: '',
           dietetictype: '',
           appetite: '',
-          dinehours: '',
+          dinehours: 0,
           animalheat: '',
           weather: '',
           defcationnum: '',
@@ -287,7 +284,7 @@
                 this.$Message.success('信息录入成功!');
                 setTimeout(function () {
                   this.$router.push({name: 'home'})
-                }.bind(this), 1000)
+                }.bind(this), 50)
               } else if (res.data.msgCode == -1) {
               } else {
               }

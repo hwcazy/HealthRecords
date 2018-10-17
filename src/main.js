@@ -13,10 +13,8 @@ import '@/filter'
 import echarts from 'echarts' //引入echarts
 
 
+
 Vue.prototype.$echarts = echarts //引入组件
-
-
-
 Vue.use(iView)
 
 

@@ -72,7 +72,7 @@
                 this.$Message.success('信息录入成功!');
                 setTimeout(function () {
                   this.$router.push({name: 'home'})
-                }.bind(this), 1000)
+                }.bind(this), 50)
               } else if (res.data.msgCode == -1) {
               } else {
               }

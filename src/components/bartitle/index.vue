@@ -2,7 +2,7 @@
   <div class="title">
     <div class="back">
       <span @click="back" class="icon"><Icon type="ios-arrow-back" /> </span>
-     <span>{{ mytitle }}</span>
+     <span style="font-size: 16px">{{ mytitle }}</span>
       <span  class="operation" @click="myClick">{{ operationName }}</span>
     </div>
   </div>
@@ -44,7 +44,7 @@
 
 <style  scoped>
 .title{
-  background-color: cornflowerblue;
+  background-color: #47cb89;
   position: relative;
   height: 50px;
   width: 100%;

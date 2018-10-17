@@ -28,7 +28,7 @@
 
         <Col span="12">
           <FormItem label="入眠时长(h)" prop="Longsleeptime">
-            <Input v-model="formValidate.Longsleeptime" placeholder="请填写入眠时长"></Input>
+            <InputNumber v-model="formValidate.Longsleeptime" placeholder="请填写入眠时长"></InputNumber>
           </FormItem>
         </Col>
       </Row>
@@ -48,18 +48,20 @@
 
         <Col span="12">
           <FormItem label="工作时长(h)" prop="Longworkingtime">
-            <Input v-model="formValidate.Longworkingtime" placeholder="请填写工作时长"></Input>
+            <InputNumber v-model="formValidate.Longworkingtime" placeholder="请填写工作时长"></InputNumber>
           </FormItem>
         </Col>
       </Row>
 
 
       <Row>
-        <Col span="12">
-          <FormItem label="起夜次数" prop="urinate">
-            <Input v-model="formValidate.urinate" placeholder="请填写起夜次数"></Input>
+        <Col span="12" >
+          <FormItem label="起夜次数" prop="urinate" >
+            <div style="display: inline">
+            <InputNumber v-model="formValidate.urinate" placeholder="请填写起夜次数"></InputNumber>
+              次
+            </div>
           </FormItem>
-
         </Col>
 
         <Col span="12">
@@ -80,7 +82,6 @@
             <Select v-model="formValidate.isdiet" placeholder="请选择是否饮食">
               <Option value="是">是</Option>
               <Option value="否">否</Option>
-
             </Select>
           </FormItem>
 
@@ -143,10 +144,10 @@
             Wakingtime: new Date(),
             Bedtime: new Date(),
             Timetofallasleep: new Date(),
-            Longsleeptime: '',
+            Longsleeptime:0,
             Sleepdepth: '',
-            Longworkingtime: '',
-            urinate: '',
+            Longworkingtime: 0,
+            urinate:0,
             emotion: '',
             isdiet: '',
             isTakemedicine: '',
@@ -165,9 +166,6 @@
             ],
             Timetofallasleep: [
               { required: true, type: 'string', message: '请选择入睡时间', trigger: 'change' }
-            ],
-            Longsleeptime: [
-              { required: true, message: '入眠时长不能为空', trigger: 'blur' }
             ],
 
 
@@ -209,7 +207,7 @@
                   this.$Message.success('信息录入成功!');
                   setTimeout(function () {
                     this.$router.push({name: 'home'})
-                  }.bind(this), 1000)
+                  }.bind(this), 50)
                 } else if (res.data.msgCode == -1) {
 
                 } else {

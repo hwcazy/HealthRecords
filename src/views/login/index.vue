@@ -76,13 +76,14 @@
               setCookie('username', this.username, 1000 * 60);
               sessionStorage.setItem('patientno',JSON.stringify(res.data.data.patientno));
               setTimeout(function () {
-                this.$router.push({path: 'home', query: {id: 1}})
-              }.bind(this), 1000)
+                this.$router.push({name: 'home'})
+              }.bind(this), 50)
             } else if (res.data.msgCode == -1) {
               this.$Message.error('密码输入错误');
             } else {
               this.$Message.error('该用户不存在');
             }
+
           })
         }
       },

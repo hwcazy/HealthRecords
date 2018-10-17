@@ -122,7 +122,7 @@
                 setTimeout(function () {
                   this.$router.push({name: 'home'})
                   //this.$router.push({path: 'home', query: {id: 1}})
-                }.bind(this), 1000)
+                }.bind(this), 50)
               } else if (res.data.msgCode == -1) {
 
               } else {

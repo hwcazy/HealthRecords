@@ -1,6 +1,6 @@
 <template>
     <div>
-      体验系统
+      <img src="../../../assets/tijian.jpg" style="width: 100%">
     </div>
 </template>
 

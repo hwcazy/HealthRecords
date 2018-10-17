@@ -19,26 +19,34 @@
 
         <Col span="12">
           <FormItem label="饮酒次数" prop="count">
-            <Input v-model="formValidate.count" placeholder="请填写入饮酒次数"></Input>
+            <div style="display: inline">
+              <InputNumber v-model="formValidate.count" placeholder="请填写入饮酒次数"></InputNumber>
+              次
+            </div>
           </FormItem>
         </Col>
       </Row>
-
-      <Row>
-        <Col span="12">
-          <FormItem label="饮酒时间" prop="time">
-            <TimePicker type="time" placeholder="选择时间" v-model="formValidate.time"></TimePicker>
-          </FormItem>
-        </Col>
-
-        <Col span="12">
-          <FormItem label="饮酒量" prop="amount">
-            <Input v-model="formValidate.amount" placeholder="请填写饮酒量"></Input>
-          </FormItem>
-        </Col>
-      </Row>
-
-
+      <FormItem label="饮酒时间">
+        <Row>
+          <Col span="11">
+            <FormItem prop="date">
+              <DatePicker type="date" placeholder="选择日期" v-model="formValidate.date"></DatePicker>
+            </FormItem>
+          </Col>
+          <Col span="2" style="text-align: center">-</Col>
+          <Col span="11">
+            <FormItem prop="time">
+              <TimePicker type="time" placeholder="选择时间" v-model="formValidate.time"></TimePicker>
+            </FormItem>
+          </Col>
+        </Row>
+      </FormItem>
+      <FormItem label="饮酒量" prop="amount">
+        <div style="display: inline">
+          <InputNumber v-model="formValidate.amount" placeholder="请填写饮酒量"></InputNumber>
+          ml
+        </div>
+      </FormItem>
 
       <Row>
         <Col span="12">
@@ -49,7 +57,10 @@
 
         <Col span="12">
           <FormItem label="饮酒度数" prop="Degrees">
-            <Input v-model="formValidate.Degrees" placeholder="请填写饮酒度数"></Input>
+            <div style="display: inline">
+              <InputNumber v-model="formValidate.Degrees" placeholder="请填写饮酒度数"></InputNumber>
+              度
+            </div>
           </FormItem>
         </Col>
       </Row>
@@ -61,14 +72,13 @@
 
 
       <FormItem label="餐饮情况" prop="Diet">
-        <Input v-model="formValidate.Diet" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="填写餐饮情况..."></Input>
+        <Input v-model="formValidate.Diet" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
+               placeholder="填写餐饮情况..."></Input>
       </FormItem>
       <FormItem label="备注" prop="remark">
-        <Input v-model="formValidate.remark" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="填写备注信息..."></Input>
+        <Input v-model="formValidate.remark" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
+               placeholder="填写备注信息..."></Input>
       </FormItem>
-
-
-
 
 
       <FormItem>
@@ -84,97 +94,95 @@
   import Bartitle from '@/components/bartitle'
   import {URI} from '../../../constants/uri'
   import axios from 'axios'
-    export default {
-      components:{
-        Bartitle
-      },
-      mounted() {
-      },
-      data(){
-        return{
-          formValidate: {
-            type: '',
-            count: '',
-            time: new Date(),
-            amount: '',
-            reflect: '',
-            Degrees: '',
-            brand: '',
-            Diet: '',
-            remark: '',
+  import Unix from '@/utils/Unix'
+
+  export default {
+    components: {
+      Bartitle,
+      Unix,
+    },
+    mounted() {
+    },
+    data() {
+      return {
+        formValidate: {
+          type: '',
+          count: 0,
+          date: new Date(),
+          time: new Date(),
+          amount: 0,
+          reflect: '',
+          Degrees: 0,
+          brand: '',
+          Diet: '',
+          remark: '',
 
 
-
-          },
-          ruleValidate: {
-            type: [
-              { required: true, type: 'string', message: '请选择酒类型', trigger: 'change' }
-            ],
-
-            count: [
-              { required: true, message: '饮酒次数不能为空', trigger: 'blur' }
-            ],
-
-
-
-          }
-        }
-      },
-
-      methods: {
-        handleSubmit (name) {
-          this.$refs[name].validate((valid) => {
-            if (valid) {
-
-              this.$Spin.show();
-              setTimeout(() => {
-                this.$Spin.hide();
-              }, 3000);
-              axios.post(URI+'/api/HealthSys/DrinkRecord',
-                {
-                  patientno:JSON.parse(sessionStorage.getItem("patientno")),
-                  winetype: this.formValidate.type,
-                  drinkingtime: this.formValidate.time,
-                  drinkingnum: this.formValidate.count,
-                  drinkingcapacity: this.formValidate.amount,
-                  drinkingreaction: this.formValidate.reflect,
-                  catering: this.formValidate.Diet,
-                  drinkingdegree: this.formValidate.Degrees,
-                  drinkingbrand: this.formValidate.brand,
-                  remark : this.formValidate.remark,
-
-                }).then((res) => {
-                this.$Spin.hide();
-                console.log(res.data)
-                this.item = res.data
-                if (res.data.msgCode == 0) {
-                  this.$Message.success('信息录入成功!');
-                  setTimeout(function () {
-                    this.$router.push({name: 'home'})
-                  }.bind(this), 1000)
-                } else if (res.data.msgCode == -1) {
-                } else {
-                }
-              })
-
-
-            } else {
-              this.$Message.error('Fail!');
-            }
-          })
         },
-        handleReset (name) {
-          this.$refs[name].resetFields();
-        }
+        ruleValidate: {
+          type: [
+            {required: true, type: 'string', message: '请选择酒类型', trigger: 'change'}
+          ],
 
+
+        }
+      }
+    },
+
+    methods: {
+      handleSubmit(name) {
+        this.$refs[name].validate((valid) => {
+          if (valid) {
+
+            this.$Spin.show();
+            setTimeout(() => {
+              this.$Spin.hide();
+            }, 3000);
+            axios.post(URI + '/api/HealthSys/DrinkRecord',
+              {
+                patientno: JSON.parse(sessionStorage.getItem("patientno")),
+                winetype: this.formValidate.type,
+                drinkingtime: Unix.unixToDate(this.formValidate.date) + " " + this.formValidate.time,
+                drinkingnum: this.formValidate.count,
+                drinkingcapacity: this.formValidate.amount,
+                drinkingreaction: this.formValidate.reflect,
+                catering: this.formValidate.Diet,
+                drinkingdegree: this.formValidate.Degrees,
+                drinkingbrand: this.formValidate.brand,
+                remark: this.formValidate.remark,
+
+              }).then((res) => {
+              this.$Spin.hide();
+              console.log(res.data)
+              this.item = res.data
+              if (res.data.msgCode == 0) {
+                this.$Message.success('信息录入成功!');
+                setTimeout(function () {
+                  this.$router.push({name: 'home'})
+                }.bind(this), 50)
+              } else if (res.data.msgCode == -1) {
+              } else {
+              }
+            })
+
+
+          } else {
+            this.$Message.error('Fail!');
+          }
+        })
+      },
+      handleReset(name) {
+        this.$refs[name].resetFields();
       }
 
     }
+
+  }
 </script>
 
-<style  scoped>
+<style scoped>
 
-  Form{
+  Form {
     margin-top: 20px;
     color: cornflowerblue;
     background-color: white;
