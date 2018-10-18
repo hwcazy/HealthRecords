@@ -30,7 +30,7 @@
           <Col span="12">
             <FormItem label="年龄" prop="age">
               <div style="display: inline">
-              <InputNumber v-model="formValidate.age" placeholder="请填写年龄"></InputNumber>岁
+              <InputNumber v-model="formValidate.age" placeholder="请填写年龄" style="width: 60px;"></InputNumber>岁
               </div>
             </FormItem>
           </Col>

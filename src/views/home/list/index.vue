@@ -176,7 +176,6 @@
 
         BaseUrl: "https://open.weixin.qq.com/connect/oauth2/authorize?",
         JsApiData: "",
-
         GetCodes: {
           //公众号的唯一标识
           AppId: "wxa02256ff56d6af5e",
