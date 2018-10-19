@@ -18,7 +18,7 @@
         </Col>
 
         <Col span="12">
-          <FormItem label="饮酒次数" prop="count">
+          <FormItem label="饮酒次数" prop="count" style="width: 60px">
             <div style="display: inline">
               <InputNumber v-model="formValidate.count" placeholder="请填写入饮酒次数"></InputNumber>
               次
@@ -56,7 +56,7 @@
         </Col>
 
         <Col span="12">
-          <FormItem label="饮酒度数" prop="Degrees">
+          <FormItem label="饮酒度数" prop="Degrees" style="width: 60px">
             <div style="display: inline">
               <InputNumber v-model="formValidate.Degrees" placeholder="请填写饮酒度数"></InputNumber>
               度

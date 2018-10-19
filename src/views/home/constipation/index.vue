@@ -73,8 +73,8 @@
 
       <Row>
         <Col span="12">
-          <FormItem label="用药次数" prop="drugfrequency">
-            <div style="display: inline">
+          <FormItem label="用药次数" prop="drugfrequency" style="width: 60px">
+            <div style="display: inline;">
               <InputNumber v-model="formValidate.drugfrequency" placeholder="请填写用药次数"></InputNumber>
               次
             </div>
@@ -82,7 +82,7 @@
         </Col>
 
         <Col span="12">
-          <FormItem label="如厕次数" prop="toiletcount">
+          <FormItem label="如厕次数" prop="toiletcount" style="width: 60px">
             <div style="display: inline">
               <InputNumber v-model="formValidate.toiletcount" placeholder="请填写如厕次数"></InputNumber>
               次

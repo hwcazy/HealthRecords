@@ -5,11 +5,14 @@
 
 
       <Row>
+
         <Col span="12">
           <FormItem label="起床时间" prop="Wakingtime">
             <TimePicker type="time" placeholder="选择时间" v-model="formValidate.Wakingtime"></TimePicker>
           </FormItem>
         </Col>
+
+
 
         <Col span="12">
           <FormItem label="上床时间" prop="Bedtime">
@@ -19,12 +22,16 @@
       </Row>
 
 
+
       <Row>
         <Col span="12">
           <FormItem label="入睡时间" prop="Timetofallasleep">
             <TimePicker type="time" placeholder="选择时间" v-model="formValidate.Timetofallasleep"></TimePicker>
           </FormItem>
         </Col>
+
+
+
 
         <Col span="12">
           <FormItem label="入眠时长(h)" prop="Longsleeptime">
@@ -41,10 +48,11 @@
             <Select v-model="formValidate.Sleepdepth" placeholder="请选择睡眠深浅">
               <Option value="深睡眠">深睡眠</Option>
               <Option value="浅睡眠">浅睡眠</Option>
-
             </Select>
           </FormItem>
         </Col>
+
+
 
         <Col span="12">
           <FormItem label="工作时长(h)" prop="Longworkingtime">
@@ -56,7 +64,7 @@
 
       <Row>
         <Col span="12" >
-          <FormItem label="起夜次数" prop="urinate" >
+          <FormItem label="起夜次数" prop="urinate" style="width: 60px">
             <div style="display: inline">
             <InputNumber v-model="formValidate.urinate" placeholder="请填写起夜次数"></InputNumber>
               次
