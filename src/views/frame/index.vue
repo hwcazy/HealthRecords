@@ -20,7 +20,7 @@
     width: 100%;
   }
   .router-link-active{
-    color: #2d8cf0;
+    color: #47cb89;
   }
   a{
     color: #808695;
@@ -28,11 +28,11 @@
 </style>
 
 <template>
-  <div class="frame-main">
+  <div class="frame-main" >
     <div>
       <div class="single-page">
         <router-view class="Router"></router-view>
-        <div class="main"  >
+        <div class="main" >
           <div class="nav" v-show="show" >
             <Row style="border:1px solid #c5c8ce;border-radius: 3px">
               <Col span="8"  style="background-color: white;">

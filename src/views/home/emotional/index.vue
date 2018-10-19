@@ -38,6 +38,7 @@
       return{
         formValidate: {
           emotionstate: '',
+          remark: '',
         },
         ruleValidate: {
           emotionstate: [
