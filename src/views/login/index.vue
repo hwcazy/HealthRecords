@@ -41,9 +41,9 @@
   import {URI} from '../../constants/uri'
   export default {
     mounted() {
-      if(getCookie('username')){
-        this.$router.push('/home')
-      }
+      // if(getCookie('username')){
+      //   this.$router.push('/home')
+      // }
 
 
     },

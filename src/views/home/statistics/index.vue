@@ -9,6 +9,7 @@
 
 <script>
   import Bartitle from '@/components/bartitle'
+  import {URI} from '../../../constants/uri'
   import axios from 'axios'
   export default {
     name: 'hello',
@@ -17,12 +18,16 @@
       Bartitle
     },
     mounted() {
+      this.GetStatistics();
       this.drawLine();
       this.drawBin();
     },
     data(){
       return{
-        msg: 'Welcome to Your Vue.js App'
+        msg: 'Welcome to Your Vue.js App',
+        coldcount: 0,
+        coldday: 0,
+        clodsym: 0,
 
 
 
@@ -30,6 +35,29 @@
     },
 
     methods: {
+
+
+      GetStatistics() {
+        // 发送一个 POST 请求
+
+        axios.post(URI + '/api/HealthSys/CountCold',
+          {
+            patientno: JSON.parse(sessionStorage.getItem("patientno")),
+          }).then((res) => {
+          console.log(res.data)
+          this.item = res.data
+          if (res.data.msgCode == 0) {
+            this.coldcount = res.data.data.coldcount;
+            this.coldday = res.data.data.coldday;
+            this.clodsym = res.data.data.clodsym;
+
+          }
+
+        })
+
+
+      },
+
 
       drawBin(){
         // 绘制图表。
