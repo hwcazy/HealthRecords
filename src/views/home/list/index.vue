@@ -65,7 +65,7 @@
             </router-link>
           </Col>
           <Col span="6" order="3">
-            <router-link to="/home/diarrhea">
+            <router-link to="/home/diarrheashow">
               <div class="icon">
                 <div class="icon_bg" style="background-color: #e13d13">
                   <Icon type="logo-freebsd-devil"/>
@@ -76,7 +76,7 @@
             </router-link>
           </Col>
           <Col span="6" order="4">
-            <router-link to="/home/constipation">
+            <router-link to="/home/constipationshow">
               <div class="icon">
                 <div class="icon_bg" style="background-color: rebeccapurple">
                   <Icon type="ios-pint"/>
@@ -91,7 +91,7 @@
 
         <Row type="flex">
           <Col span="6" order="5">
-            <router-link to="/home/wine">
+            <router-link to="/home/wineshow">
               <div class="icon">
                 <div class="icon_bg" style="background-color: steelblue">
                   <Icon type="ios-wine"/>
@@ -102,7 +102,7 @@
             </router-link>
           </Col>
           <Col span="6" order="6">
-            <router-link to="/home/diet">
+            <router-link to="/home/dietshow">
               <div class="icon">
                 <div class="icon_bg" style="background-color: maroon">
                   <Icon type="ios-restaurant"/>
@@ -113,7 +113,7 @@
             </router-link>
           </Col>
           <Col span="6" order="7">
-            <router-link to="/home/emotional">
+            <router-link to="/home/emotionalshow">
               <div class="icon">
                 <div class="icon_bg" style="background-color: #f5a623">
                   <Icon type="md-happy"/>
@@ -124,7 +124,7 @@
             </router-link>
           </Col>
           <Col span="6" order="8">
-            <router-link to="/home/exercise">
+            <router-link to="/home/exerciseshow">
               <div class="icon">
                 <div class="icon_bg" style="background-color: cornflowerblue">
                   <Icon type="md-bicycle"/>

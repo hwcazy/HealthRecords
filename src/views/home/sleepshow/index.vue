@@ -4,7 +4,7 @@
     <!-- <div id="myBin" style="width: 100%;height:300px;"></div> -->
     <div id="content">
 
-      <Card style="width:max-content;margin: 10px">
+      <Card class="card">
         <div style="text-align:center">
           <img style="width: 100%"
                src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542893856729&di=ae3508d011d409806c94b28f841fb880&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F377adab44aed2e736da093d88d01a18b86d6fafd.jpg">
@@ -12,17 +12,17 @@
         </div>
       </Card>
 
-      <Card style="width:max-content;margin: 10px">
+      <Card class="card">
         <p slot="title">最近一个月情绪状况</p>
         <CellGroup>
-          <Cell  style="color: green">高兴{{ sentiment1 }}(天)</Cell>
-          <Cell  style="color: green">平和{{ sentiment2 }}(天)</Cell>
-          <Cell  style="color: green">生气{{ sentiment3 }}(天)</Cell>
+          <Cell style="color: green">高兴{{ sentiment1 }}(天)</Cell>
+          <Cell style="color: green">平和{{ sentiment2 }}(天)</Cell>
+          <Cell style="color: green">生气{{ sentiment3 }}(天)</Cell>
         </CellGroup>
       </Card>
 
 
-        <div id="myChart" :style="{width: '100%', height: '300px'}"></div>
+      <div id="myChart" :style="{width: '100%', height: '300px'}"></div>
 
     </div>
   </div>
@@ -272,9 +272,18 @@
 
 <style scoped>
 
-  content {
+  #content {
     color: cornflowerblue;
-    background-color: gray;
+    background-color: white;
+    width: 100%;
   }
 
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  .card {
+    margin: 10px;
+  }
 </style>

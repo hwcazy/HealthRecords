@@ -58,6 +58,16 @@ export const appRouter = [
     ]
   },
   {
+    path: '/home/constipationshow',
+    name: 'constipationshow',
+    title: '便秘统计',
+    icon: 'navicon',
+    component: Frame,
+    children: [
+      {path: 'constipationshow', title: '便秘统计', name: 'home-constipationshow', component: () => import('@/views/home/constipationshow')},
+    ]
+  },
+  {
     path: '/home/wine',
     name: 'wine',
     title: '饮酒',
@@ -65,6 +75,16 @@ export const appRouter = [
     component: Frame,
     children: [
       {path: 'wine', title: '饮酒', name: 'home-wine', component: () => import('@/views/home/wine')},
+    ]
+  },
+  {
+    path: '/home/wineshow',
+    name: 'wineshow',
+    title: '饮酒情况',
+    icon: 'navicon',
+    component: Frame,
+    children: [
+      {path: 'wineshow', title: '饮酒情况', name: 'home-wineshow', component: () => import('@/views/home/wineshow')},
     ]
   },
   {
@@ -78,6 +98,16 @@ export const appRouter = [
     ]
   },
   {
+    path: '/home/dietshow',
+    name: 'dietshow',
+    title: '饮食情况',
+    icon: 'navicon',
+    component: Frame,
+    children: [
+      {path: 'dietshow', title: '饮食情况', name: 'home-dietshow', component: () => import('@/views/home/dietshow')},
+    ]
+  },
+  {
     path: '/home/emotional',
     name: 'emotional',
     title: '情绪化',
@@ -88,6 +118,16 @@ export const appRouter = [
     ]
   },
   {
+    path: '/home/emotionalshow',
+    name: 'emotionalshow',
+    title: '情绪状况',
+    icon: 'navicon',
+    component: Frame,
+    children: [
+      {path: 'emotionalshow', title: '情绪状况', name: 'home-emotionalshow', component: () => import('@/views/home/emotionalshow')},
+    ]
+  },
+  {
     path: '/home/exercise',
     name: 'exercise',
     title: '锻炼',
@@ -95,6 +135,16 @@ export const appRouter = [
     component: Frame,
     children: [
       {path: 'exercise', title: '锻炼', name: 'home-exercise', component: () => import('@/views/home/exercise')},
+    ]
+  },
+  {
+    path: '/home/exerciseshow',
+    name: 'exerciseshow',
+    title: '运动情况',
+    icon: 'navicon',
+    component: Frame,
+    children: [
+      {path: 'exerciseshow', title: '运动情况', name: 'home-exerciseshow', component: () => import('@/views/home/exerciseshow')},
     ]
   },
   {
@@ -115,6 +165,16 @@ export const appRouter = [
     component: Frame,
     children: [
       {path: 'sleepshow', title: '感冒记录', name: 'home-sleepshow', component: () =>  import('@/views/home/sleepshow')},
+    ]
+  },
+  {
+    path: '/home/diarrheashow',
+    name: 'diarrheashow',
+    title: '腹泻记录',
+    icon: 'navicon',
+    component: Frame,
+    children: [
+      {path: 'diarrheashow', title: '腹泻记录', name: 'home-diarrheashow', component: () =>  import('@/views/home/diarrheashow')},
     ]
   },
   {
